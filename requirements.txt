@@ -1,0 +1,4 @@
+mcstatus
+flask
+pywin32
+httpx

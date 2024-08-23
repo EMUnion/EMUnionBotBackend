@@ -1,0 +1,5 @@
+MinecraftClient*
+data.db
+venv
+config.yml
+lang

@@ -1,0 +1,17 @@
+qq:
+  host: 127.0.0.1
+  port: 3030
+
+servers:
+  - name: BungeeCord 跨服端
+    host: example.org
+    port: 12345
+  - name: Survival 生存服
+    host: example.org
+    port: 23456
+  - name: Flat 超平坦创造服
+    host: example.org
+    port: 34567
+
+admin:
+  - 123456789
