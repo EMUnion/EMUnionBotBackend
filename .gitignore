@@ -3,3 +3,4 @@ data.db
 venv
 config.yml
 lang
+*.zip
