@@ -350,10 +350,10 @@ def addWhitelist(username: str):
             print(output.strip())
     except Exception as e:
         print(f"读取输出时出错: {e}")
-
+    print(output_all)
     # 等待进程结束
     process.wait()
-    if not "已加入白名单" in output_all:
+    if not "服务器的Minecraft版本" in output_all:
         raise ServerConnectionError("添加失败，请重试！")
 
 
@@ -389,7 +389,7 @@ def removeWhitelist(username: str):
 
     # 等待进程结束
     process.wait()
-    if not "已从白名单移除" in output_all:
+    if not "服务器的Minecraft版本" in output_all:
         raise ServerConnectionError("移除失败，请重试！")
 
 debugBlueprint = Blueprint("debug", __name__, url_prefix="/debug")
@@ -451,7 +451,7 @@ def bindHandler(msg: str, qid: int):
             addWhitelist(split[1])
             add_bind(qid, split[1])
         except ServerConnectionError:
-            f"[CQ:at,qq={qid}] 添加失败，无法连接到服务器，请重试！"
+            return f"[CQ:at,qq={qid}] 添加失败，无法连接到服务器，请重试！"
         return f"[CQ:at,qq={qid}] 已为玩家 {split[1]} 添加白名单！"
 
 
@@ -488,9 +488,12 @@ def mainHander():
     elif data.get("raw_message") == "/unbind":
         if remove_bind(data.get("sender").get("user_id")):
             username = query_username
-            removeWhitelist(username)
-            remove_bind(mc=username)
-            msg = f"[CQ:at,qq={qid}] 已经为你解除 {username} 的绑定！"
+            try:
+                removeWhitelist(username)
+                remove_bind(mc=username)
+                msg = f"[CQ:at,qq={qid}] 已经为你解除 {username} 的绑定！"
+            except ServerConnectionError:
+                msg = f"[CQ:at,qq={qid}] 解除绑定失败，请重试！"
         else:
             msg = f"[CQ:at,qq={qid}] 解除绑定失败！请联系管理员！"
     elif data.get("raw_message").startswith("/admin"):
