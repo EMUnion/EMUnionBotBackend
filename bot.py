@@ -520,14 +520,14 @@ def mainHander():
             else:
                 removeWhitelist(commands[2])
                 remove_bind(mc=commands[2])
-                msg = f"[CQ:at,qq={qid}] 已经清除了用户名 {commands[3]} 的绑定！"
+                msg = f"[CQ:at,qq={qid}] 已经清除了用户名 {commands[2]} 的绑定！"
         elif commands[1] == "ban":
             if len(commands) != 3 or not commands[2].isascii():
                 msg = f"[CQ:at,qq={qid}] 管理员命令/admin ban <name>，请正确使用！"
             else:
                 removeWhitelist(commands[2])
                 ban_bind(mc=commands[2])
-                msg = f"[CQ:at,qq={qid}] 已经封禁了用户名为 {commands[3]} 的玩家！"
+                msg = f"[CQ:at,qq={qid}] 已经封禁了用户名为 {commands[2]} 的玩家！"
     else:
         enable = False
     if enable:
